@@ -390,7 +390,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "b1733783f7265e4da986f1c7ecae409bc300ca16ec82aa98505982256179f81e"
+content-hash = "9f7242a5b8ccf3ffa38377d8a6050e2b872e0d9aade56b328efe703bf292839c"
 
 [metadata.files]
 asgiref = [
