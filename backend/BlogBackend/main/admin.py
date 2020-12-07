@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from backend.BlogBackend.main.models import Article, Comments, FavoriteArticle
+
+admin.site.register(Article)
+admin.site.register(Comments)
+admin.site.register(FavoriteArticle)
