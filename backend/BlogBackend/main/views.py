@@ -7,12 +7,14 @@ from .serializers import *
 from .permissions import IsOwnerOrReadOnly
 
 
+# USER
 class Logout(APIView):
     def get(self, request, format=None):
         request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)
 
 
+# ARTICLE
 class ArticleListView(generics.ListAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializers
@@ -45,3 +47,9 @@ class DeleteArticleView(generics.RetrieveDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = CreateArticleSerializers
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+
+# COMMENTS
+class CommentsListView(generics.ListAPIView):
+    serializer_class = CommentsSerializers
+    queryset = Comments.objects.all()

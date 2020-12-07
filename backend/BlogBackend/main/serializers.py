@@ -40,7 +40,6 @@ class CreateFavoriteArticleSerializers(serializers.ModelSerializer):
 
 class CommentsSerializers(serializers.ModelSerializer):
     article_id = ArticleSerializers()
-    user_id = UserSerializers()
 
     class Meta:
         model = Comments
