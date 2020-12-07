@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from backend.BlogBackend.main.models import Article, Comments, FavoriteArticle
+from main.models import Article, Comments, FavoriteArticle
 
 admin.site.register(Article)
 admin.site.register(Comments)
