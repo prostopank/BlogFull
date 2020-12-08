@@ -8,6 +8,11 @@ from .permissions import IsOwnerOrReadOnly
 
 
 # USER
+class UsersListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializers
+
+
 class Logout(APIView):
     def get(self, request, format=None):
         request.user.auth_token.delete()
@@ -53,3 +58,39 @@ class DeleteArticleView(generics.RetrieveDestroyAPIView):
 class CommentsListView(generics.ListAPIView):
     serializer_class = CommentsSerializers
     queryset = Comments.objects.all()
+
+
+class CreateCommentView(generics.CreateAPIView):
+    queryset = Comments.objects.all()
+    serializer_class = CreateCommentsSerializers
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class UpdateCommentView(generics.RetrieveUpdateAPIView):
+    queryset = Comments.objects.all()
+    serializer_class = CreateCommentsSerializers
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+
+class DeleteCommentView(generics.RetrieveDestroyAPIView):
+    queryset = Article.objects.all()
+    serializer_class = CreateArticleSerializers
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+
+# FAVORITE ARTICLES
+class FavoriteArticleListView(generics.ListAPIView):
+    serializer_class = FavoriteArticleSerializers
+    queryset = FavoriteArticle.objects.all()
+
+
+class CreateFavoriteArticleView(generics.CreateAPIView):
+    queryset = FavoriteArticle.objects.all()
+    serializer_class = CreateFavoriteArticleSerializers
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class DeleteFavoriteArticleView(generics.RetrieveDestroyAPIView):
+    queryset = FavoriteArticle.objects.all()
+    serializer_class = CreateFavoriteArticleSerializers
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]

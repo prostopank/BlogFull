@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.deletion import CASCADE
@@ -9,6 +10,12 @@ class Article(models.Model):
     title = models.CharField('title', max_length=100, null=False)
     body = models.TextField('body', null=False)
     views = models.IntegerField(default=0)
+
+    @property
+    def get_content_type(self):
+        instance = self
+        content_type = ContentType.objects.get_for_model(instance.__class__)
+        return content_type
 
     def __str__(self):
         return self.title
