@@ -65,11 +65,17 @@ class CreateCommentView(generics.CreateAPIView):
     serializer_class = CreateCommentsSerializers
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
+    def perform_create(self, serializer):
+        serializer.save(user_id=self.request.user)
+
 
 class UpdateCommentView(generics.RetrieveUpdateAPIView):
     queryset = Comments.objects.all()
     serializer_class = CreateCommentsSerializers
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+    def perform_update(self, serializer):
+        serializer.save(user_id=self.request.user)
 
 
 class DeleteCommentView(generics.RetrieveDestroyAPIView):

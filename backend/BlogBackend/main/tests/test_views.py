@@ -5,7 +5,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase
 
 from main.models import Article
-
 from main.models import Comments
 
 
@@ -124,17 +123,34 @@ class CommentsViewTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Comments.objects.count(), 1)
 
-
-
-
-
     def test_comments_create_view(self):
         data = {
             "body": "test_body_for_create_comment",
-            "article_id": self.article
-
+            "article_id": 1,
+            "user_id": 1
         }
 
         response = self.client.post('/api/comments/create', data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_comments_update_view(self):
+        data = {
+            "body": "test_body_for_update_comment",
+            "article_id": 1,
+            "user_id": 1
+        }
+
+        response = self.client.put('/api/comments/update/1', data)
+        comment = Comments.objects.get(id=1)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEquals(comment.body, 'test_body_for_update_comment')
+
+    def test_delete_delete_view(self):
+        response_delete = self.client.delete('/api/comments/delete/1')
+        response_get = self.client.get('/api/comments/delete/1')
+
+        self.assertEqual(response_delete.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response_get.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEquals(Comments.objects.count(), 0)
