@@ -1,11 +1,12 @@
 from django.contrib.auth.models import User
 
-from rest_framework import status, request
+from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase
 
 from main.models import Article
 from main.models import Comments
+from main.models import FavoriteArticle
 
 
 class RegistrationUserTestCase(APITestCase):
@@ -147,10 +148,47 @@ class CommentsViewTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEquals(comment.body, 'test_body_for_update_comment')
 
-    def test_delete_delete_view(self):
+    def test_comments_delete_view(self):
         response_delete = self.client.delete('/api/comments/delete/1')
         response_get = self.client.get('/api/comments/delete/1')
 
         self.assertEqual(response_delete.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(response_get.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEquals(Comments.objects.count(), 0)
+
+
+class FavoriteArticleViewTestCase(APITestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='Dima', password='some-very-strong-psw')
+        self.token = Token.objects.create(user=self.user)
+        self.api_authentication()
+        self.article = Article.objects.create(user_id=self.user, title='testTitle', body='testBody')
+        self.favorite_article = FavoriteArticle.objects.create(user_id=self.user, article_id=self.article)
+
+    def api_authentication(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+
+    def test_favorite_article_list_view(self):
+        response = self.client.get('/api/favorite_articles/all')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(FavoriteArticle.objects.count(), 1)
+
+    def test_favorite_article_create_view(self):
+        data = {
+            "article_id": 1,
+            "user_id": 1
+        }
+
+        response = self.client.post('/api/favorite_articles/create', data)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(FavoriteArticle.objects.count(), 2)
+
+    def test_favorite_article_delete_view(self):
+        response_delete = self.client.delete('/api/favorite_articles/delete/1')
+        response_get = self.client.get('/api/favorite_articles/delete/1')
+
+        self.assertEqual(response_delete.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response_get.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEquals(FavoriteArticle.objects.count(), 0)
