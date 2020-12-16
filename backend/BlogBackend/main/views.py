@@ -95,6 +95,9 @@ class CreateFavoriteArticleView(generics.CreateAPIView):
     serializer_class = CreateFavoriteArticleSerializers
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
+    def perform_create(self, serializer):
+        serializer.save(user_id=self.request.user)
+
 
 class DeleteFavoriteArticleView(generics.RetrieveDestroyAPIView):
     queryset = FavoriteArticle.objects.all()
