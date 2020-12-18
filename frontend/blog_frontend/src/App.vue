@@ -1,28 +1,23 @@
 <template>
   <div id="app">
-    <h1>Articles</h1>
-    <div class="article" v-for="article in articles" :key="article.id">
-      <h2>{{ article.title }}</h2>
-      <p>{{ article.body }}</p>
-      <p>{{ article.create_date }}</p>
-      <p>{{ article.views }}</p>
-    </div>
+    <registration/>
+    <sign-in/>
+    <all-article/>
   </div>
 </template>
 
 <script>
+
+import AllArticle from './components/AllArticle.vue';
+import Registration from './components/Registration.vue';
+import SignIn from './components/SignIn.vue';
 export default {
   name: "App",
-  data() {
-    return {
-      articles: [],
-    };
-  },
-  async mounted() {
-    const res = await fetch("http://127.0.0.1:8000/api/article/all");
-    const articles = await res.json();
-    this.articles = articles;
-  },
+  components:{
+    AllArticle,
+    Registration,
+    SignIn
+  }
 };
 </script>
 
@@ -34,13 +29,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin: 60px auto;
-  width: 400px;
-}
-
-.article {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 1rem;
   width: 400px;
 }
 </style>
