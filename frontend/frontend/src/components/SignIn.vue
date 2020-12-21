@@ -1,39 +1,37 @@
 <template>
   <div id="SignIn">
-    <form @submit="login">
-      {{ form }}
+    <form @submit.prevent="submit">
       <div>
-        <label for="Username"> Username </label>
-
+        <label for="username"> username </label>
         <input
           type="text"
           name="username"
-          id="username_for_signin"
+          id="username"
           v-model="form.username"
         />
       </div>
       <div>
-        <label for="password1"> Password </label>
-
+        <label for="password"> password </label>
         <input
           type="password"
           name="password"
-          id="password_for_signin"
+          id="password"
           v-model="form.password"
         />
       </div>
       <div>
-        <button type="submit">Submit</button>
+        <button type="submit">Sign in</button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import { mapActions } from "vuex";
 export default {
   name: "SignIn",
   components: {},
+
   data() {
     return {
       form: {
@@ -42,22 +40,16 @@ export default {
       },
     };
   },
-  methods: {
-    login(event) {
-      event.preventDefault();
 
-      this.axios
-        .post("http://localhost:8000/api/auth/token/", {
-          username: this.username,
-          password: this.password,
-        })
-        .then((response) => {
-          this.setLogined(response.data.token);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+  methods: {
+    ...mapActions({
+      signIn: "auth/signIn",
+    }),
+
+    submit() {
+      this.signIn(this.form);
     },
+    
   },
 };
 </script>
@@ -69,7 +61,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin: 60px auto;
-  width: 400px;
+  margin-top: 60px;
 }
 </style>

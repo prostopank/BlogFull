@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   name: "Registration",
   components: {},
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     async submit() {
-      let responce = await axios.post("auth/users/", this.form);
+      let responce = await axios.post("/auth/users/", this.form);
       console.log(responce.data);
     },
   },
