@@ -1,21 +1,13 @@
 <template>
   <div id="app">
-   <sign-in/>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/SignIn">SignIn</router-link> |
+    <router-link to="/Registration">Registration</router-link>
+    <br>
+    <router-view/>
   </div>
 </template>
 
-<script>
-import SignIn from './components/SignIn.vue'
-
-
-export default {
-  name: 'App',
-  components: {
-    SignIn
-    
-  }
-}
-</script>
 
 <style>
 #app {

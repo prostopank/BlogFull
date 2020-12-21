@@ -1,8 +1,9 @@
 <template>
-  <div id="SignIn">
-    <form @submit.prevent="submit">
+  <div id="Registration">
+    <form @submit.prevent="submit">   
       <div>
-        <label for="username"> username </label>
+        <label for="Username"> Username </label>
+
         <input
           type="text"
           name="username"
@@ -11,7 +12,8 @@
         />
       </div>
       <div>
-        <label for="password"> password </label>
+        <label for="password"> Password </label>
+
         <input
           type="password"
           name="password"
@@ -20,18 +22,17 @@
         />
       </div>
       <div>
-        <button type="submit">Sign in</button>
+        <button type="submit">Submit</button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import axios from "axios";
 export default {
-  name: "SignIn",
+  name: "Registration",
   components: {},
-
   data() {
     return {
       form: {
@@ -40,27 +41,23 @@ export default {
       },
     };
   },
-
   methods: {
-    ...mapActions({
-      signIn: "auth/signIn",
-    }),
-
-    submit() {
-      this.signIn(this.form);
+    async submit() {
+      let responce = await axios.post("/auth/users/", this.form);
+      console.log(responce.data);
     },
-    
   },
 };
 </script>
 
 <style>
-#SignIn {
+#Registration {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 60px auto;
+  width: 400px;
 }
 </style>
