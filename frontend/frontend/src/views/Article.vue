@@ -1,39 +1,33 @@
 <template>
   <div class="ArticleAll">
-    <h1>Articles</h1>
-    <div
-      class="article"
-      v-for="article in articles"
-      :key="article.id"
-      v-bind:article_data="article"
-    >
+    <div class="article">
       <h2>{{ article.title }}</h2>
       <p>{{ article.body }}</p>
       <p>{{ article.create_date }}</p>
-      <p>{{ article.views }}</p>
-      <button
-        @click="
-          $router.push({ name: 'ArticleDetail', params: { id: article.id } })
-        "
-      >Go to</button>
-      <p>{{ article.id }}</p>
-      <router-view />
+      <p>{{ }}</p>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: "AllArticle",
+  name: "Article",
   data() {
     return {
-      articles: [],
+      article: null,
     };
   },
-  async mounted() {
+  async created() {
     const res = await fetch("http://127.0.0.1:8000/api/article/all");
     const articles = await res.json();
-    this.articles = articles;
+    const article = articles.find(
+      (article) => article.id == this.$route.params.id
+    );
+    axios.get("http://127.0.0.1:8000/api/article/{{article.id}}")
+    if (article) {
+      this.article = article;
+    }
   },
 };
 </script>
