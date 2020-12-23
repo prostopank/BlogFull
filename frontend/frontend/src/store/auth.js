@@ -41,6 +41,9 @@ export default ({
                     }
                 })
                 commit('SET_USER', (await responce).data)
+                axios.defaults.headers.common["X-XSRF-TOKEN"] = token
+                axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
+            
 
             } catch (e) {
                 commit('SET_TOKEN', null)
