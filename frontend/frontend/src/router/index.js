@@ -5,6 +5,7 @@ import SignIn from '../views/SignIn.vue'
 import Registration from '../views/Registration.vue'
 import Home from '../views/Home.vue'
 import Article from '../views/Article.vue'
+import FavoriteArticle from '../views/FavoriteArticle.vue'
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,10 @@ const routes = [
     {
         path: '/Registration',
         component: Registration
+    },
+    {
+        path: '/FavoriteArticle',
+        component: FavoriteArticle
     }
 
 ]

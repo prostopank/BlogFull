@@ -1,53 +1,53 @@
 <template>
   <div id="app">
     <template v-if="authenticated">
-      <p>{{user.username}}</p>
-      <router-link to="/">Home </router-link> 
+      <p>{{ user.username }}</p>
+      <router-link to="/">Home </router-link>
+      <router-link to="/FavoriteArticle">Favorite Articles </router-link>
       <a href="#" @click.prevent="signOut">SignOut</a>
     </template>
     <template v-else>
       <router-link to="/">Home </router-link>
-      <router-link to="/SignIn">SignIn </router-link> 
+      <router-link to="/SignIn">SignIn </router-link>
       <router-link to="/Registration">Registration </router-link>
     </template>
-    
-    <br>
-    <router-view/>
+
+    <br />
+    <router-view />
   </div>
 </template>
 
 <script>
-
 import { mapGetters, mapActions } from "vuex";
 
 export default {
- 
-
   computed: {
     ...mapGetters({
       authenticated: "auth/authenticated",
       user: "auth/user",
     }),
   },
-  methods:{
+  methods: {
     ...mapActions({
-      signOutAction:'auth/signOut'
+      signOutAction: "auth/signOut",
     }),
 
-    signOut(){
+    signOut() {
       try {
-        this.signOutAction().then(()=>{
-        this.$router.replace({
-          name:'Home'
-        })
-      }).catch(()=>{
-        console.log('failed')
-      })
+        this.signOutAction()
+          .then(() => {
+            this.$router.replace({
+              name: "Home",
+            });
+          })
+          .catch(() => {
+            console.log("failed");
+          });
       } catch (error) {
-        console.log('Error')
+        console.log("Error");
       }
-  }
-  }
+    },
+  },
 };
 </script>
 
