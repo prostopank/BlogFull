@@ -4,9 +4,15 @@ import axios from 'axios'
 import store from './store'
 import router from './router'
 
-axios.defaults.baseURL = 'http://localhost:8000/api/'
+require('@/store/subscribe')
+
+
+
+axios.defaults.baseURL ='http://127.0.0.1:8000/api'
 
 Vue.config.productionTip = false
+
+store.dispatch('auth/attempt', localStorage.getItem('token'))
 
 new Vue({
   router,

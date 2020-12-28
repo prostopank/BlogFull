@@ -47,7 +47,13 @@ export default {
     }),
 
     submit() {
-      this.signIn(this.form);
+      this.signIn(this.form).then(()=>{
+        this.$router.replace({
+          name:'Home'
+        })
+      }).catch(()=>{
+        console.log('failed')
+      });
     },
     
   },
