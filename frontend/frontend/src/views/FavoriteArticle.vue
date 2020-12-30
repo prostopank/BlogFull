@@ -8,10 +8,10 @@
       :key="article.id"
       v-bind:article_data="article"
     >
-      <h2>{{ article.title }}</h2>
-      <p>{{ article.body }}</p>
-      <p>{{ article.create_date }}</p>
-      <p>{{ article.views }}</p>
+      <h2>{{ article.article_id.title }}</h2>
+      <p>{{ article.article_id.body }}</p>
+      <p>{{ article.article_id.create_date }}</p>
+      <p>{{ article.article_id.views }}</p>
 
       <button
         @click="
@@ -36,16 +36,29 @@ export default {
     };
   },
 
-  async mounted() {
-    const res = await fetch("http://127.0.0.1:8000/api/article/all");
-    const articles = await res.json();
-    this.articles = articles;
-  },
   computed: {
     ...mapGetters({
       authenticated: "auth/authenticated",
       user: "auth/user",
     }),
+  },
+  methods: {
+    filter_articles() {
+      let favorite_articles = this.articles;
+      favorite_articles = favorite_articles.filter(function (item) {
+        console.log(item.user_id)
+        console.log(this.user)
+        return item.user_id == this.user.id;
+      });
+      this.articles = favorite_articles;
+      
+    },
+  },
+  async mounted() {
+    const res = await fetch("http://127.0.0.1:8000/api/favorite_articles/all");
+    const articles = await res.json();
+    this.articles = articles;
+    await this.filter_articles();
   },
 };
 </script>

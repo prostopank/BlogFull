@@ -28,8 +28,8 @@
       :key="comment.id"
       v-bind:comments_data="comment"
     >
-    <p>{{comment.body}}</p>
-     </div>
+      <p>{{ comment.body }}</p>
+    </div>
   </div>
 </template>
 
@@ -43,7 +43,7 @@ export default {
     return {
       article: "",
       body_comments: "",
-      comments:[]
+      comments: [],
     };
   },
   async created() {
@@ -55,10 +55,9 @@ export default {
     //axios.get("http://127.0.0.1:8000/api/article/{{article.id}}");
     if (article) {
       this.article = article;
-      const comments = article.comments
-      this.comments = comments
+      const comments = article.comments;
+      this.comments = comments;
     }
-
   },
 
   computed: {
@@ -70,12 +69,16 @@ export default {
 
   methods: {
     async submit() {
-      await axios.post("http://127.0.0.1:8000/api/comments/create", {
-        user_id: this.user.id,
-        article_id: this.article.id,
-        body: this.body_comments,
-      });
-      this.body_comments = " ";
+      await axios
+        .post("http://127.0.0.1:8000/api/comments/create", {
+          user_id: this.user.id,
+          article_id: this.article.id,
+          body: this.body_comments,
+        })
+        .then((response) => {
+          this.comments.push(response.data);
+          this.body_comments = " ";
+        });
     },
   },
 };
