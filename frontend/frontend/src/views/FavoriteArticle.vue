@@ -4,7 +4,7 @@
 
     <div
       class="article"
-      v-for="article in articles"
+      v-for="article in favorite_articles"
       :key="article.id"
       v-bind:article_data="article"
     >
@@ -33,6 +33,7 @@ export default {
   data() {
     return {
       articles: [],
+      favorite_articles: [],
     };
   },
 
@@ -43,22 +44,21 @@ export default {
     }),
   },
   methods: {
-    filter_articles() {
-      let favorite_articles = this.articles;
-      favorite_articles = favorite_articles.filter(function (item) {
-        console.log(item.user_id)
-        console.log(this.user)
-        return item.user_id == this.user.id;
-      });
-      this.articles = favorite_articles;
-      
+    async filter_articles() {
+      let favorite_articles = await [];
+      for (let i = 0; i < Object.keys(this.articles).length; i++) {
+        if (this.articles[i]["user_id"] == this.user.id) {
+          favorite_articles.push(this.articles[i]);
+        }
+      }
+      this.favorite_articles = favorite_articles;
     },
   },
   async mounted() {
     const res = await fetch("http://127.0.0.1:8000/api/favorite_articles/all");
-    const articles = await res.json();
+    let articles = await res.json();
     this.articles = articles;
-    await this.filter_articles();
+    this.filter_articles();
   },
 };
 </script>
