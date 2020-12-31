@@ -6,6 +6,8 @@ import Registration from '../views/Registration.vue'
 import Home from '../views/Home.vue'
 import Article from '../views/Article.vue'
 import FavoriteArticle from '../views/FavoriteArticle.vue'
+import Edit from '../views/Edit.vue'
+import EditPage from '../views/EditPage.vue'
 
 Vue.use(VueRouter)
 
@@ -31,7 +33,16 @@ const routes = [
     {
         path: '/FavoriteArticle',
         component: FavoriteArticle
+    },
+    {
+        path: '/Edit',
+        component: Edit
+    },
+    {
+        path: '/EditPage',
+        component: EditPage
     }
+    
 
 ]
 

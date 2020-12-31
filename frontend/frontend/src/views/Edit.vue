@@ -1,28 +1,25 @@
 <template>
   <div class="ArticleAll">
-    <h1>Articles</h1>
-
     <div
       class="article"
-      v-for="article in favorite_articles"
+      v-for="article in user_articles"
       :key="article.id"
       v-bind:article_data="article"
     >
-      <h2>{{ article.article_id.title }}</h2>
-      <p>{{ article.article_id.body }}</p>
-      <p>{{ article.article_id.create_date }}</p>
-      <p>{{ article.article_id.views }}</p>
+      <h2>{{ article.title }}</h2>
+      <p>{{ article.body }}</p>
+      <p>{{ article.create_date }}</p>
+      <p>{{ article.views }}</p>
 
       <button
         @click="
-          $router.push({
-            name: 'ArticleDetail',
-            params: { id: article.article_id.id },
-          })
+          $router.push({ name: 'ArticleDetail', params: { id: article.id } })
         "
       >
         Go to
       </button>
+      <button type="edit">Edit</button>
+      <button @click="delete_article(article.id)">Delete</button>
       <p>{{ article.id }}</p>
       <router-view />
     </div>
@@ -30,16 +27,18 @@
 </template>
 
 <script>
+import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
-  name: "FavoriteArticle",
+  name: "Edit",
   data() {
     return {
       articles: [],
-      favorite_articles: [],
+      user_articles: [],
+      Title: "",
+      Body: "",
     };
   },
-
   computed: {
     ...mapGetters({
       authenticated: "auth/authenticated",
@@ -48,17 +47,27 @@ export default {
   },
   methods: {
     async filter_articles() {
-      let favorite_articles = await [];
+      let user_articles = await [];
       for (let i = 0; i < Object.keys(this.articles).length; i++) {
-        if (this.articles[i]["user_id"] == this.user.id) {
-          favorite_articles.push(this.articles[i]);
+        if (this.articles[i].user_id.username == this.user.username) {
+          user_articles.push(this.articles[i]);
         }
       }
-      this.favorite_articles = favorite_articles;
+      this.user_articles = user_articles;
+    },
+    async delete_article(article_id) {
+      await axios
+        .delete("http://127.0.0.1:8000/api/article/delete/" + article_id)
+        .then(() => {
+          const index = this.user_articles.findIndex(
+            (article) => article.id === article_id
+          );
+          if (~index) this.user_articles.splice(index, 1);
+        });
     },
   },
   async mounted() {
-    const res = await fetch("http://127.0.0.1:8000/api/favorite_articles/all");
+    const res = await fetch("http://127.0.0.1:8000/api/article/all");
     let articles = await res.json();
     this.articles = articles;
     this.filter_articles();
@@ -74,7 +83,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin: 60px auto;
-  width: 400px;
+  width: 450px;
 }
 .article {
   border: 1px solid #ccc;

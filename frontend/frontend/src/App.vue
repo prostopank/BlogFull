@@ -4,6 +4,8 @@
       <p>{{ user.username }}</p>
       <router-link to="/">Home </router-link>
       <router-link to="/FavoriteArticle">Favorite Articles </router-link>
+       <router-link to="/Edit">Edit </router-link>
+       
       <a href="#" @click.prevent="signOut">SignOut</a>
     </template>
     <template v-else>
