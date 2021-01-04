@@ -1,6 +1,6 @@
 <template>
   <div class="ArticleAll">
-    <h1>Articles</h1>
+    <h1>Favorite Articles</h1>
 
     <div
       class="article"
@@ -12,7 +12,9 @@
       <p>{{ article.article_id.body }}</p>
       <p>{{ article.article_id.create_date }}</p>
       <p>{{ article.article_id.views }}</p>
-
+      <button type="submit" @click="delete_from_favorite(article.id)">
+        Delete from favorite</button
+      ><br /><br />
       <button
         @click="
           $router.push({
@@ -31,6 +33,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import axios from "axios";
 export default {
   name: "FavoriteArticle",
   data() {
@@ -55,6 +58,17 @@ export default {
         }
       }
       this.favorite_articles = favorite_articles;
+    },
+
+    async delete_from_favorite(article_id) {
+      await axios.delete(
+        "http://127.0.0.1:8000/api/favorite_articles/delete/" + article_id
+      ).then(() => {
+          const index = this.favorite_articles.findIndex(
+            (article) => article.id === article_id
+          );
+          if (~index) this.favorite_articles.splice(index, 1);
+        });
     },
   },
   async mounted() {

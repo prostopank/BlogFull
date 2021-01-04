@@ -1,5 +1,31 @@
 <template>
   <div class="ArticleAll">
+    <button class="button" @click="show_edit_page = true">Add Article</button
+    ><br />
+    <template v-if="show_edit_page">
+      <form @submit.prevent="create_article">
+        <div>
+          <br />
+          Title<br />
+          <input
+            type="text"
+            name="article.title"
+            v-model="article_title_edit"
+          /><br /><br />
+          Body<br />
+          <textarea
+            name="article.body"
+            v-model="article_body_edit"
+            cols="30"
+            rows="10"
+          ></textarea
+          ><br />
+          <button class="button" @click="close_form()">Close</button>
+          <button class="button">Save</button>
+        </div>
+      </form> </template
+    ><br />
+
     <div
       class="article"
       v-for="article in user_articles"
@@ -16,9 +42,13 @@
           $router.push({ name: 'ArticleDetail', params: { id: article.id } })
         "
       >
-        Go to
+        Go to</button
+      ><br />
+      <br />
+      <button class="button" @click="edit_article(article)">
+        Edit Article
       </button>
-      <button type="edit">Edit</button>
+
       <button @click="delete_article(article.id)">Delete</button>
       <p>{{ article.id }}</p>
       <router-view />
@@ -37,6 +67,11 @@ export default {
       user_articles: [],
       Title: "",
       Body: "",
+      show_edit_page: false,
+
+      article_title_edit: "",
+      article_body_edit: "",
+      article_id: "",
     };
   },
   computed: {
@@ -64,6 +99,33 @@ export default {
           );
           if (~index) this.user_articles.splice(index, 1);
         });
+    },
+
+    async create_article() {
+      await axios
+        .post("http://127.0.0.1:8000/api/article/create", {
+          user_id: this.user.id,
+          title: this.article_title_edit,
+          body: this.article_body_edit,
+        })
+        .then((response) => {
+          this.user_articles.push(response.data);
+          this.close_form();
+        });
+    },
+
+    async edit_article(article) {
+      this.show_edit_page = true;
+      this.article_title_edit = article.title;
+      this.article_body_edit = article.body;
+      this.article_id = article.id;
+    },
+
+    async close_form() {
+      this.show_edit_page = false;
+      this.article_title_edit = "";
+      this.article_body_edit = "";
+      this.article_id = "";
     },
   },
   async mounted() {
