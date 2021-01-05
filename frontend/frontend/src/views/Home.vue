@@ -8,15 +8,20 @@
       v-bind:article_data="article"
     >
       <h2>{{ article.title }}</h2>
+      <hr />
       <p>{{ article.body }}</p>
+      <hr />
       <p>{{ article.create_date }}</p>
-      <p>{{ article.views }}</p>
+      <p>Views: {{ article.views }}</p>
+      <hr />
       <button
         @click="
           $router.push({ name: 'ArticleDetail', params: { id: article.id } })
         "
-      >Go to</button>
-      <p>{{ article.id }}</p>
+      >
+        Go to</button
+      ><br />
+      <br />
       <router-view />
     </div>
   </div>
@@ -43,15 +48,14 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin-top: 60px;
   text-align: center;
-  color: #2c3e50;
-  margin: 60px auto;
-  width: 400px;
 }
 .article {
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 20px;
   margin-bottom: 2rem;
-  width: 400px;
+  width: 600px;
+  margin-left: 34%;
 }
 </style>

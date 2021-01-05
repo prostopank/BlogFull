@@ -9,13 +9,16 @@
       v-bind:article_data="article"
     >
       <h2>{{ article.article_id.title }}</h2>
+      <hr />
       <p>{{ article.article_id.body }}</p>
+      <hr />
       <p>{{ article.article_id.create_date }}</p>
       <p>{{ article.article_id.views }}</p>
+      <hr />
       <button type="submit" @click="delete_from_favorite(article.id)">
-        Delete from favorite</button
-      ><br /><br />
-      <button
+        Delete from favorite
+      </button>
+      <button style="margin-left: 10px"
         @click="
           $router.push({
             name: 'ArticleDetail',
@@ -25,7 +28,7 @@
       >
         Go to
       </button>
-      <p>{{ article.id }}</p>
+     <br><br>
       <router-view />
     </div>
   </div>
@@ -61,9 +64,11 @@ export default {
     },
 
     async delete_from_favorite(article_id) {
-      await axios.delete(
-        "http://127.0.0.1:8000/api/favorite_articles/delete/" + article_id
-      ).then(() => {
+      await axios
+        .delete(
+          "http://127.0.0.1:8000/api/favorite_articles/delete/" + article_id
+        )
+        .then(() => {
           const index = this.favorite_articles.findIndex(
             (article) => article.id === article_id
           );
@@ -81,19 +86,4 @@ export default {
 </script>
 
 <style>
-.ArticleAll {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin: 60px auto;
-  width: 400px;
-}
-.article {
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  margin-bottom: 2rem;
-  width: 400px;
-}
 </style>
