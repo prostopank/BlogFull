@@ -7,14 +7,15 @@
       :key="article.id"
       v-bind:article_data="article"
     >
-      <h2>{{ article.title }}</h2>
-      <hr />
+      <h2 class="header_style">{{ article.title }}</h2>
+
       <p>{{ article.body }}</p>
       <hr />
-      <p>{{ article.create_date }}</p>
-      <p>Views: {{ article.views }}</p>
+      <span>Create date: {{ article.create_date }} </span>
+      <span>Views: {{ article.views }}</span>
       <hr />
       <button
+        class="button_style"
         @click="
           $router.push({ name: 'ArticleDetail', params: { id: article.id } })
         "
@@ -48,14 +49,35 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin-top: 60px;
+  margin-top: 40px;
   text-align: center;
 }
 .article {
-  border: 2px solid #ccc;
+  border: 2px solid rgb(0, 0, 0);
   border-radius: 20px;
   margin-bottom: 2rem;
   width: 600px;
   margin-left: 34%;
+  background-color: white;
+}
+
+.button_style {
+  border-radius: 10px;
+  width: 150px;
+  height: 40px;
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(18, 0, 82);
+  background-color: rgba(26, 80, 228, 0.336);
+}
+
+.header_style {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: rgba(26, 80, 228, 0.336);
+  padding-block-end: 10px;
+  padding-block-start: 10px;
 }
 </style>

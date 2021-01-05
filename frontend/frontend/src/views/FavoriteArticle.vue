@@ -8,17 +8,24 @@
       :key="article.id"
       v-bind:article_data="article"
     >
-      <h2>{{ article.article_id.title }}</h2>
-      <hr />
+      <h2 class="header_style">{{ article.article_id.title }}</h2>
+
       <p>{{ article.article_id.body }}</p>
       <hr />
       <p>{{ article.article_id.create_date }}</p>
       <p>{{ article.article_id.views }}</p>
       <hr />
-      <button type="submit" @click="delete_from_favorite(article.id)">
-        Delete from favorite
+      <button
+        class="button_style"
+        style="background-color: red"
+        type="submit"
+        @click="delete_from_favorite(article.id)"
+      >
+        Delete
       </button>
-      <button style="margin-left: 10px"
+      <button
+        class="button_style"
+        style="margin-left: 10px"
         @click="
           $router.push({
             name: 'ArticleDetail',
@@ -28,7 +35,7 @@
       >
         Go to
       </button>
-     <br><br>
+      <br /><br />
       <router-view />
     </div>
   </div>

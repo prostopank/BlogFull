@@ -1,6 +1,7 @@
 <template>
   <div class="ArticleAll">
-    <button class="button" @click="show_edit_page = true">Add Article</button
+    <h1>Edit Page</h1>
+    <button class="button_style" @click="show_edit_page = true">Add Article</button
     ><br />
     <template v-if="show_edit_page">
       <form @submit.prevent="create_article">
@@ -32,12 +33,15 @@
       :key="article.id"
       v-bind:article_data="article"
     >
-      <h2>{{ article.title }}</h2><hr>
-      <p>{{ article.body }}</p><hr>
+      <h2 class="header_style">{{ article.title }}</h2>
+      <p>{{ article.body }}</p>
+      <hr />
       <p>{{ article.create_date }}</p>
-      <p>{{ article.views }}</p><hr>
+      <p>{{ article.views }}</p>
+      <hr />
 
       <button
+        class="button_style"
         @click="
           $router.push({ name: 'ArticleDetail', params: { id: article.id } })
         "
@@ -45,14 +49,18 @@
         Go to</button
       ><br />
       <br />
-      <button class="button" @click="edit_article(article)">
+      <button class="button_style" style="background-color: rgba(100, 150, 0, 0.575);" @click="edit_article(article)">
         Edit Article
       </button>
 
-      <button @click="delete_article(article.id)" style="margin-left: 10px">
+      <button
+        class="button_style"
+        style="background-color: red; margin-left: 10px"
+        @click="delete_article(article.id)"
+      >
         Delete
       </button>
-      <p>{{ article.id }}</p>
+      <br /><br />
       <router-view />
     </div>
   </div>

@@ -3,25 +3,27 @@
     <div class="article">
       <h2>{{ article.title }}</h2>
       <p>{{ article.body }}</p>
-      <p>{{ article.create_date }}</p>
     </div>
     <template v-if="authenticated">
-      <button type="submit" @click="add_to_favorite()">Add to favorite</button><br><br>
+      <button type="submit" @click="add_to_favorite()" class="button_style">
+        Add to favorite</button
+      ><br /><br />
       <form @submit.prevent="submit">
         <div>
-          <label for="body"> Comment </label><br>
+          <label for="body"> Comment </label><br />
           <textarea
             type="text"
             name="body_comments"
             id="body_comments"
-            cols="30" rows="5"
+            cols="30"
+            rows="5"
             v-model="body_comments"
           />
-          
         </div>
         <div>
           <button type="submit">Submit</button>
         </div>
+        <br />
       </form>
     </template>
     <template v-else> </template>
@@ -83,17 +85,15 @@ export default {
           this.body_comments = " ";
         });
     },
-    async add_to_favorite(){
-      await axios 
-      .post("http://127.0.0.1:8000/api/favorite_articles/create", {
-          user_id: this.user.id,
-          article_id: this.article.id,
-        })
-    }
+    async add_to_favorite() {
+      await axios.post("http://127.0.0.1:8000/api/favorite_articles/create", {
+        user_id: this.user.id,
+        article_id: this.article.id,
+      });
+    },
   },
 };
 </script>
 
 <style>
-
 </style>

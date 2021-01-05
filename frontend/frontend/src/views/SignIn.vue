@@ -1,6 +1,7 @@
 <template>
   <div class="SignIn">
     <form @submit.prevent="submit">
+      <br><br><br>
       <div>
         <label for="username"> username </label>
         <input
