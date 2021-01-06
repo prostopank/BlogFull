@@ -83,7 +83,7 @@ export default {
 }
 
 .nav {
-  background: rgba(0, 102, 255, 0.397);
+  background: rgba(0, 0, 0, 0.63);
   width: 100%;
   height: 90px;
   position: absolute;
@@ -94,7 +94,7 @@ export default {
 .nav_link {
   border: 0px solid rgb(0, 0, 0);
   border-radius: 5px;
-  background-color: rgba(157, 255, 0, 0.24);
+  background-color: rgba(0, 0, 0, 0.562);
   font-size: 18px;
   margin-right: 10px;
   margin-left: 5px;
@@ -103,6 +103,6 @@ export default {
   padding-left: 18px;
   padding-top: 10px;
   padding-bottom: 10px;
-  color: black;
+  color: rgb(255, 255, 255);
 }
 </style>

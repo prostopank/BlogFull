@@ -10,7 +10,7 @@
       ><br /><br />
       <form @submit.prevent="submit">
         <div>
-          <label for="body"> Comment </label><br />
+         
           <textarea
             type="text"
             name="body_comments"
@@ -18,10 +18,12 @@
             cols="30"
             rows="5"
             v-model="body_comments"
+            class="comment_form"
+            placeholder="Comment"
           />
         </div>
         <div>
-          <button type="submit">Submit</button>
+          <button type="submit" class="button_style" style="background-color: rgba(100, 150, 0, 0.575);">Submit</button>
         </div>
         <br />
       </form>
@@ -96,4 +98,17 @@ export default {
 </script>
 
 <style>
+
+.comment_form{
+  border-radius: 20px;
+  width: 400px;
+  height: 50px;
+  text-align: center;
+  font-size: 18px;
+  color: black;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.541);
+}
+
 </style>

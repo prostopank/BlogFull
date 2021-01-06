@@ -1,28 +1,29 @@
 <template>
   <div id="Registration">
-    <form @submit.prevent="submit">   
+    <form @submit.prevent="submit">
+      <h1>Registration</h1>
       <div>
-        <label for="Username"> Username </label>
-
         <input
           type="text"
           name="username"
           id="username"
           v-model="form.username"
+          class="form_style"
+          placeholder="Username"
         />
       </div>
       <div>
-        <label for="password"> Password </label>
-
         <input
           type="password"
           name="password"
           id="password"
           v-model="form.password"
+          class="form_style"
+          placeholder="Password"
         />
       </div>
       <div>
-        <button type="submit">Submit</button>
+        <button type="submit" class="button_style">Submit</button>
       </div>
     </form>
   </div>

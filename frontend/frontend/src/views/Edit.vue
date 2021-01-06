@@ -1,28 +1,44 @@
 <template>
   <div class="ArticleAll">
     <h1>Edit Page</h1>
-    <button class="button_style" @click="show_edit_page = true">Add Article</button
+    <button class="button_style" @click="show_edit_page = true">
+      Add Article</button
     ><br />
     <template v-if="show_edit_page">
       <form @submit.prevent="create_article">
         <div>
-          <br />
-          Title<br />
           <input
             type="text"
             name="article.title"
             v-model="article_title_edit"
-          /><br /><br />
-          Body<br />
+            class="title_form"
+            placeholder="Title"
+          /><br />
           <textarea
             name="article.body"
             v-model="article_body_edit"
             cols="30"
             rows="10"
+            class="body_form"
+            placeholder="Body"
           ></textarea
           ><br />
-          <button class="button" @click="close_form()">Close</button>
-          <button class="button" style="margin-left: 10px">Save</button>
+          <button
+            @click="close_form()"
+            class="button_style"
+            style="background-color: red; margin-left: 10px"
+          >
+            Close
+          </button>
+          <button
+            class="button_style"
+            style="
+              background-color: rgba(100, 150, 0, 0.575);
+              margin-left: 10px;
+            "
+          >
+            Save
+          </button>
         </div>
       </form> </template
     ><br />
@@ -49,7 +65,11 @@
         Go to</button
       ><br />
       <br />
-      <button class="button_style" style="background-color: rgba(100, 150, 0, 0.575);" @click="edit_article(article)">
+      <button
+        class="button_style"
+        style="background-color: rgba(100, 150, 0, 0.575)"
+        @click="edit_article(article)"
+      >
         Edit Article
       </button>
 
@@ -148,4 +168,25 @@ export default {
 </script>
 
 <style>
+.title_form {
+  border-radius: 10px;
+  margin-top: 20px;
+  width: 300px;
+  height: 50px;
+  font-size: 18px;
+  text-align: center;
+  
+}
+
+.body_form {
+  border-radius: 10px;
+  margin-top: 20px;
+  width: 400px;
+  height: 100px;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 10px;
+  border: 2px solid rgb(0, 0, 0);
+  
+}
 </style>

@@ -58,7 +58,7 @@ export default {
   margin-bottom: 2rem;
   width: 600px;
   margin-left: 34%;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.637);
 }
 
 .button_style {
@@ -67,8 +67,8 @@ export default {
   height: 40px;
   font-size: 18px;
   font-weight: bold;
-  color: rgb(18, 0, 82);
-  background-color: rgba(26, 80, 228, 0.336);
+  color: rgb(0, 0, 0);
+  background-color: rgba(148, 148, 148, 0.616);
 }
 
 .header_style {
@@ -76,8 +76,9 @@ export default {
   margin-block-end: 0;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  background-color: rgba(26, 80, 228, 0.336);
+  background-color: rgba(0, 0, 0, 0.63);
   padding-block-end: 10px;
   padding-block-start: 10px;
+  color: rgb(0, 0, 0);
 }
 </style>
